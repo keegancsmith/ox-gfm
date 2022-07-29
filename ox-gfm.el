@@ -54,6 +54,7 @@
               (if a (org-gfm-export-to-markdown t s v)
                 (org-open-file (org-gfm-export-to-markdown nil s v)))))))
   :translate-alist '((inner-template . org-gfm-inner-template)
+                     (example-block . org-gfm-example-block)
                      (paragraph . org-gfm-paragraph)
                      (strike-through . org-gfm-strike-through)
                      (src-block . org-gfm-src-block)
@@ -64,6 +65,17 @@
 
 
 ;;; Transcode Functions
+
+;;;; Example Block
+
+(defun org-gfm-example-block (example-block contents info)
+  "Transcode EXAMPLE-BLOCK element into Github Flavored Markdown
+format. CONTENTS is nil.  INFO is a plist used as a communication
+channel."
+  (concat "```\n"
+          (org-export-format-code-default example-block info)
+          "```"))
+
 
 ;;;; Paragraph
 
